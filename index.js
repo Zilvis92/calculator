@@ -9,7 +9,11 @@ let calculationSpan = document.getElementById('calculation');
 let history = [];
 
 function onNumberClick(number) {
-    input.value += number;
+    if (input.value === '0') {
+        input.value = number;
+    } else {
+        input.value += number;
+    }
 }
 
 function onActionClick(clickedAction) {
