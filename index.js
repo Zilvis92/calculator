@@ -4,7 +4,7 @@ let action = '+';
 let answer = 0;
 
 let input = document.getElementById('calc-input');
-let calculationSpan = document.getElementById('calculation-span');
+let calculationSpan = document.getElementById('calculation');
 
 function onNumberClick(number) {
     input.value += number;
@@ -23,6 +23,8 @@ function onCountClick() {
 
     calculateAnswer();
     input.value = answer;
+
+    calculationSpan.innerText = `${firstNumber} ${action} ${secondNumber}`;
 }
 
 function calculateAnswer() {
@@ -33,7 +35,7 @@ function calculateAnswer() {
         case '-':
             answer = firstNumber - secondNumber;
             break;
-        case '*':
+        case 'x':
             answer = firstNumber * secondNumber;
             break;
         case '/':
@@ -50,4 +52,5 @@ function onCleanClick() {
     secondNumber = 0;
     action = '+';
     answer = 0;
+    calculationSpan.innerText = '';
 }
