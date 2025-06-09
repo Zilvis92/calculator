@@ -21,6 +21,7 @@ function onCountClick() {
     secondNumber = parseInt(splitted[2]);
 
     calculateAnswer();
+    input.value = answer;
 }
 
 function calculateAnswer() {
