@@ -70,5 +70,7 @@ function addToHistory() {
 }
 
 document.getElementById('show-history').addEventListener('click', () => {
-    console.log('veikia');
+    let formatted = history.map(item => `<p>${item.firstNumber} ${item.action} ${item.secondNumber} = ${item.answer}</p>`);
+    let historyBlock = document.querySelector('.calculator .history-items');
+    historyBlock.innerHTML = formatted.join('');
 });

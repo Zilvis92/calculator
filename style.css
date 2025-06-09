@@ -1,62 +1,240 @@
-html, body {
+* {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
 body {
-    background-color: rgb(156, 158, 160);
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding: 20px;
 }
 
 .calculator {
     width: 100%;
-    max-width: 400px;
-    background-color: white;
-    padding: 10px;
+    max-width: 380px;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 25px;
+    padding: 30px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1),
+                0 0 0 1px rgba(255, 255, 255, 0.2);
+    transition: transform 0.3s ease;
 }
 
-.calculator .input-row {
+.calculator:hover {
+    transform: translateY(-5px);
+}
+
+.input-row {
     position: relative;
+    margin-bottom: 25px;
 }
 
-.calculator .input-row span {
+.input-row span {
+    position: absolute;
+    top: 8px;
+    right: 20px;
+    font-size: 0.9em;
+    color: #888;
+    font-weight: 500;
+    opacity: 0.8;
+    z-index: 2;
+}
+    
+.input-row input {
+    width: 100%;
+    font-size: 2.2em;
+    text-align: right;
+    padding: 25px 20px;
+    padding-top: 45px;
+    background: linear-gradient(145deg, #f8f9fa, #e9ecef);
+    border: none;
+    border-radius: 15px;
+    color: #2c3e50;
+    font-weight: 600;
+    box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.1);
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.input-row input:focus {
+    box-shadow: inset 0 4px 12px rgba(0, 0, 0, 0.15),
+                0 0 0 3px rgba(102, 126, 234, 0.3);
+}
+
+.buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+}
+
+.buttons button {
+    padding: 20px;
+    font-size: 1.8em;
+    font-weight: 600;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.buttons button::before {
+    content: '';
     position: absolute;
     top: 0;
-    right: 0;
-    padding: 10px 1em;
-}
- 
-.calculator .input-row input {
+    left: -100%;
     width: 100%;
-    box-sizing: border-box;
-    font-size:  2em;
-    text-align: right;
-    padding: 1em;
-    background-color: #eeeeee;
-    border: 1px solid #b1b1b1; 
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    transition: left 0.5s;
 }
 
-.calculator .buttons {
-    display: flex;
-    flex-wrap: wrap;
+.buttons button:hover::before {
+    left: 100%;
 }
 
-.calculator .buttons button {
-    width: 25%;
-    box-sizing: border-box;
-    padding: 20px;
-    font-size: 2em;
-    border: none;
-    background-color: #9dd8ff;
-    border: 1px solid #b1b1b1;
-    cursor: pointer;
+/* Skaičių mygtukai */
+.buttons button:nth-child(1), .buttons button:nth-child(2), .buttons button:nth-child(3),
+.buttons button:nth-child(5), .buttons button:nth-child(6), .buttons button:nth-child(7),
+.buttons button:nth-child(9), .buttons button:nth-child(10), .buttons button:nth-child(11),
+.buttons button:nth-child(13) {
+    background: linear-gradient(145deg, #ffffff, #f1f3f4);
+    color: #2c3e50;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
 }
 
-.calculator .buttons button:hover {
-    background-color: #3876a0;
+.buttons button:nth-child(1):hover, .buttons button:nth-child(2):hover, .buttons button:nth-child(3):hover,
+.buttons button:nth-child(5):hover, .buttons button:nth-child(6):hover, .buttons button:nth-child(7):hover,
+.buttons button:nth-child(9):hover, .buttons button:nth-child(10):hover, .buttons button:nth-child(11):hover,
+.buttons button:nth-child(13):hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
+    background: linear-gradient(145deg, #f8f9fa, #ffffff);
+}
+
+/* Operacijų mygtukai */
+.buttons button:nth-child(4), .buttons button:nth-child(8), 
+.buttons button:nth-child(12), .buttons button:nth-child(16) {
+    background: linear-gradient(145deg, #667eea, #764ba2);
     color: white;
+    box-shadow: 0 8px 15px rgba(102, 126, 234, 0.3);
 }
 
+.buttons button:nth-child(4):hover, .buttons button:nth-child(8):hover,
+.buttons button:nth-child(12):hover, .buttons button:nth-child(16):hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 20px rgba(102, 126, 234, 0.4);
+    background: linear-gradient(145deg, #5a67d8, #6b46c1);
+}
+
+/* Clear mygtukas */
+.buttons button:nth-child(14) {
+    background: linear-gradient(145deg, #ff6b6b, #ee5a52);
+    color: white;
+    box-shadow: 0 8px 15px rgba(255, 107, 107, 0.3);
+}
+
+.buttons button:nth-child(14):hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 20px rgba(255, 107, 107, 0.4);
+    background: linear-gradient(145deg, #ff5252, #e53e3e);
+}
+
+/* Lygybės mygtukas */
+.buttons button:nth-child(15) {
+    background: linear-gradient(145deg, #51cf66, #40c057);
+    color: white;
+    box-shadow: 0 8px 15px rgba(81, 207, 102, 0.3);
+}
+
+.buttons button:nth-child(15):hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 20px rgba(81, 207, 102, 0.4);
+    background: linear-gradient(145deg, #40c057, #37b24d);
+}
+
+.buttons button:active {
+    transform: translateY(0px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Responsive dizainas */
+@media (max-width: 480px) {
+    .calculator {
+        margin: 10px;
+        padding: 20px;
+    }
+    
+    .buttons {
+        gap: 10px;
+    }
+    
+    .buttons button {
+        padding: 15px;
+        font-size: 1.5em;
+    }
+    
+    .input-row input {
+        font-size: 1.8em;
+        padding: 20px 15px;
+        padding-top: 40px;
+    }
+}
+
+.history {
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+
+.history #show-history {
+    width: 100%;
+    padding: 15px 20px;
+    font-size: 1.1em;
+    font-weight: 600;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    background: linear-gradient(145deg, #ffffff, #f1f3f4);
+    color: #2c3e50;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.history #show-history::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    transition: left 0.5s;
+}
+
+.history #show-history:hover::before {
+    left: 100%;
+}
+
+.history #show-history:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
+    background: linear-gradient(145deg, #f8f9fa, #ffffff);
+}
+
+.history #show-history:active {
+    transform: translateY(0px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.history-items {
+    padding-top: 25px;
+}
