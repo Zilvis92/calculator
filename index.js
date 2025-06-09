@@ -42,3 +42,11 @@ function calculateAnswer() {
             answer = 0;
     }
 }
+
+function onCleanClick() {
+    input.value = '';
+    firstNumber = 0;
+    secondNumber = 0;
+    action = '+';
+    answer = 0;
+}
