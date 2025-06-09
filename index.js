@@ -4,6 +4,7 @@ let action = '+';
 let answer = 0;
 
 let input = document.getElementById('calc-input');
+let calculationSpan = document.getElementById('calculation-span');
 
 function onNumberClick(number) {
     input.value += number;

@@ -18,6 +18,17 @@ body {
     padding: 10px;
 }
 
+.calculator .input-row {
+    position: relative;
+}
+
+.calculator .input-row span {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 10px 1em;
+}
+ 
 .calculator .input-row input {
     width: 100%;
     box-sizing: border-box;
