@@ -5,6 +5,8 @@ let answer = 0;
 
 let input = document.getElementById('calc-input');
 let calculationSpan = document.getElementById('calculation');
+const showHistoryBtn = document.getElementById('show-history');
+const historyBlock = document.querySelector('.calculator .history-items');
 
 let history = [];
 
@@ -17,18 +19,32 @@ function onNumberClick(number) {
 }
 
 function onActionClick(clickedAction) {
-    input.value += ' ' + clickedAction + ' ';
+    let lastThreeChars = input.value.slice(-3);
+    let hasActionAtEnd = /^ [+\-x\/] $/.test(lastThreeChars);
+    
+    if (hasActionAtEnd) {
+        input.value = input.value.slice(0, -3) + ' ' + clickedAction + ' ';
+    } else {
+        input.value += ' ' + clickedAction + ' ';
+    }
+
     action = clickedAction;
 }
 
 function onCountClick() {
     let splitted = input.value.split(' ');
-    firstNumber = parseInt(splitted[0]);
+
+    if (splitted.length < 3) {
+        return;
+    }
+    
+    firstNumber = parseFloat(splitted[0]);
     action = splitted[1];
-    secondNumber = parseInt(splitted[2]);
+    secondNumber = parseFloat(splitted[2]);
 
     calculateAnswer();
-    input.value = answer;
+
+    input.value = answer.toString();
 
     calculationSpan.innerText = `${firstNumber} ${action} ${secondNumber}`;
 
@@ -68,13 +84,30 @@ function addToHistory() {
         firstNumber,
         action,
         secondNumber,
-        answer
+        answer: answer.toString()
     };
     history.push(historyItem);
 }
 
-document.getElementById('show-history').addEventListener('click', () => {
-    let formatted = history.map(item => `<p>${item.firstNumber} ${item.action} ${item.secondNumber} = ${item.answer}</p>`);
-    let historyBlock = document.querySelector('.calculator .history-items');
-    historyBlock.innerHTML = formatted.join('');
+showHistoryBtn.addEventListener('click', () => {
+    if (historyBlock.style.display === 'none' || historyBlock.style.display === '') {
+        // Rodyti istoriją
+        let formatted = history.map(item => `<p>${item.firstNumber} ${item.action} ${item.secondNumber} = ${item.answer}</p>`);
+        historyBlock.innerHTML = formatted.join('');
+        historyBlock.style.display = 'block';
+        showHistoryBtn.innerText = 'Slėpti istoriją';
+    } else {
+        // Slėpti istoriją
+        historyBlock.style.display = 'none';
+        showHistoryBtn.innerText = 'Rodyti istoriją';
+    }
 });
+
+function onDotClick() {
+    let parts = input.value.split(' ');
+    let lastPart = parts[parts.length - 1];
+
+     if (lastPart && !isNaN(lastPart) && !lastPart.includes('.')) {
+        input.value += '.';
+    }
+}
